@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 300
+
+Resources:
+
+  DemoFunction1:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/demoFunction1
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Events:
+        setProductDetails:
+          Type: Api
+          Properties:
+            Path: /demo1
+            Method: GET
+            RestApiId: !Ref DemoAPI
+
+  DemoFunction2:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda/demoFunction2
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      Events:
+        setProductDetails:
+          Type: Api
+          Properties:
+            Path: /demo2
+            Method: GET
+            RestApiId: !Ref DemoAPI
+
+  DemoAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Cors:
+        AllowMethods: "'*'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+
