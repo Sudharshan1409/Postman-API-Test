@@ -1,34 +1,16 @@
-# name: Run Postman Collection on Push
-# on:
-#   push:
-#     branches:
-#       - main
-
-# jobs:
-#   run-postman-collection:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#       - uses: matt-ball/newman-action@master
-#         with:
-#           apiKey: ${{ secrets.POSTMAN_API_KEY }}
-#           collection: 10797639-747d0aff-04e1-4449-9adb-9964bcf49d14
-        
-name: Deploy Prod Environment
+name: Run Postman Collection on Push
 on:
   push:
     branches:
       - main
 
 jobs:
-  build-and-deploy:
+  run-postman-collection:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
         with:
-          node-version: 18
+          apiKey: ${{ secrets.POSTMAN_API_KEY }}
+          collection: 10797639-747d0aff-04e1-4449-9adb-9964bcf49d14
+        
