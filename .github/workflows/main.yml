@@ -1,0 +1,16 @@
+name: Run Postman Collection on Push
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-postman-collection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
+        with:
+          apiKey: ${{ secrets.POSTMAN_API_KEY }}
+          collection: 10797639-747d0aff-04e1-4449-9adb-9964bcf49d14
+        
